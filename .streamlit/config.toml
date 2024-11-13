@@ -1,6 +1,5 @@
 [server]
 runOnSave = true
-port = 8000
 
 [browser]
 gatherUsageStats = false
