@@ -73,7 +73,7 @@ with col_translate:
         else:
             warning_placeholder.empty()
 
-    translated_text = translate(txt)
+    translated_text = translate(txt, lang_dict[lang_origin])
     if translated_text:
         translated_display = ""
         for idx, word in enumerate(translated_text.split()):
