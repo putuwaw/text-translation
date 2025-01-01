@@ -18,7 +18,7 @@ grpcio==1.68.1
 h5py==3.12.1
 huggingface-hub==0.26.5
 idna==3.10
-Jinja2==3.1.4
+Jinja2==3.1.5
 jsonschema==4.23.0
 jsonschema-specifications==2024.10.1
 keras==3.3.3
