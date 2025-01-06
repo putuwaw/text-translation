@@ -34,6 +34,9 @@ def translate(text: Optional[str], lang: str = "id") -> Optional[str]:
 
             for i in range(max_decoded_sentence_length):
                 predictions = model.predict(
+                    # Example:
+                    # encoder_inputs => saya berangkat ke kampus => [4324, 43, 23, 54]
+                    # decoder_inputs => [start] i go to campus => [1, 23, 54, 32, 98]
                     {"encoder_inputs": idn_vec, "decoder_inputs": eng_start}, verbose=0
                 )
 
@@ -74,6 +77,9 @@ def translate(text: Optional[str], lang: str = "id") -> Optional[str]:
 
             for i in range(max_decoded_sentence_length):
                 predictions = model.predict(
+                    # Example:
+                    # encoder_inputs => i go to campus => [4324, 43, 23, 54]
+                    # decoder_inputs => [start] saya berangkat ke kampus => [1, 23, 54, 32, 98]
                     {"encoder_inputs": eng_vec, "decoder_inputs": idn_start}, verbose=0
                 )
 
