@@ -83,8 +83,7 @@ with col_translate:
                 value=translated_display.strip() + TEXT_CARET,
                 **text_area_kwargs,
             )
-            if idx < 10:
-                time.sleep(random.uniform(0, 0.3))
+            time.sleep(random.uniform(0.3, 1))
 
         st.session_state["translation_result"] = translated_display.strip()
 
