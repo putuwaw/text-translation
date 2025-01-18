@@ -147,7 +147,7 @@ def _predict_lang(text: str) -> Literal["en", "id", "unknown"]:
     if total_idn > (0.5 * len(splitted)):
         return "id"
     if total_eng > (0.5 * len(splitted)):
-        return "eng"
+        return "en"
     else:
         return "unknown"
 
