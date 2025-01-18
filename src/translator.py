@@ -11,6 +11,11 @@ import requests
 from src.utils import *
 
 
+ENGLISH = "en"
+INDONESIA = "id"
+UNKNOWN = "unknown"
+BOTH = "both"
+
 def translate(text: Optional[str], lang: str = "id") -> Optional[str]:
     if text:
         if lang == "id":
@@ -131,26 +136,34 @@ def _get_indonesian_words() -> set[str]:
 
 
 @st.cache_data
-def _predict_lang(text: str) -> Literal["en", "id", "unknown"]:
+def _predict_lang(text: str) -> Literal["both", "en", "id", "unknown"]:
     english_words = _get_english_words()
     indonesian_words = _get_indonesian_words()
 
     total_idn = 0
     total_eng = 0
-    splitted = text.split()
+    splitted = text.lower().split()
     for word in splitted:
         if word in english_words:
             total_eng += 1
-        elif word in indonesian_words:
+        if word in indonesian_words:
             total_idn += 1
 
-    if total_idn > (0.5 * len(splitted)):
-        return "id"
-    if total_eng > (0.5 * len(splitted)):
-        return "en"
+    length_sentence = len(splitted)
+    half_sentence = length_sentence // 2
+
+    if total_idn > half_sentence and total_eng > half_sentence:
+        return BOTH
+    elif total_eng > half_sentence:
+        return ENGLISH
+    elif total_idn > half_sentence:
+        return INDONESIA
     else:
-        return "unknown"
+        return UNKNOWN
 
 
 def verify_lang(text: str, comparison: str) -> bool:
-    return _predict_lang(text) == comparison
+    predicted = _predict_lang(text)
+    if predicted == BOTH:
+        return comparison
+    return predicted
