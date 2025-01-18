@@ -165,5 +165,5 @@ def _predict_lang(text: str) -> Literal["both", "en", "id", "unknown"]:
 def verify_lang(text: str, comparison: str) -> bool:
     predicted = _predict_lang(text)
     if predicted == BOTH:
-        return comparison
-    return predicted
+        return True
+    return (predicted == comparison)
